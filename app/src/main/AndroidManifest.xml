@@ -26,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.new_details.NewsDetailsActivity"
+            android:theme="@style/Theme.DRC_Assesment_Android_Krupa_Jayani.NoActionBar"/>
     </application>
 
 </manifest>

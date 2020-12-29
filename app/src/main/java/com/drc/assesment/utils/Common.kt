@@ -2,6 +2,7 @@ package com.drc.assesment.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.drc.assesment.R
 import java.text.SimpleDateFormat
@@ -42,12 +43,23 @@ object Common {
 
     fun dateConverter(dateFromServer: String): String {
         var dateWeNeed = ""
-        var spf = SimpleDateFormat("yyyy-MM-dd'T'HH:'ZZ'")
+        var spf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
         val newDate: Date = spf.parse(dateFromServer)
-        spf = SimpleDateFormat("dd/MM/yyyy")
+        spf = SimpleDateFormat("dd MMM yyyy")
         dateWeNeed = spf.format(newDate)
         return dateWeNeed
     }
+
+
+    fun dateConverter2(dateFromServer: String): String {
+        var dateWeNeed = ""
+        var spf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+        val newDate: Date = spf.parse(dateFromServer)
+        spf = SimpleDateFormat("dd MMM, yyyy HH:mm ")
+        dateWeNeed = spf.format(newDate)
+        return dateWeNeed
+    }
+
 
 
 }
