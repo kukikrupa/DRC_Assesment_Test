@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "DRC_Assesment_Android_Krupa_Jayani"
