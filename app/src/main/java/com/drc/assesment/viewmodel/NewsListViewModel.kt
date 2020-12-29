@@ -9,8 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import com.drc.assesment.base.BaseViewModel
-import com.drc.assesment.model.CommonResponse
-import com.drc.assesment.model.LoginResponse
+import com.drc.assesment.model.NewsListResponse
 import com.drc.assesment.network.PostApi
 import com.drc.assesment.utils.Common
 import javax.inject.Inject
@@ -31,14 +30,19 @@ class NewsListViewModel(activity: AppCompatActivity) : BaseViewModel() {
     }
 
     fun getNewsList() {
+        val param = HashMap<String, String>()
+        param["sources"] = "google-news"
+        param["apiKey"] = "9a0c8e375ada4198a26f7a52638c4b78"
+
+
 
         if (Common.hasInternet(activity)) {
-            subscription = postApi.getNewsList().subscribeOn(Schedulers.io())
+            subscription = postApi.getNewsList(param).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrievePostListStart() }
                 .doOnTerminate { onRetrievePostListFinish() }
-                .subscribe(fun(result: CommonResponse) {
-                    onRetrievePostListSuccess(result,email)
+                .subscribe(fun(result: NewsListResponse) {
+                    onRetrievePostListSuccess(result)
                 }) { onRetrievePostListError() }
         }
         else
@@ -56,18 +60,17 @@ class NewsListViewModel(activity: AppCompatActivity) : BaseViewModel() {
         Common.dismissProgress()
     }
 
-    private fun onRetrievePostListSuccess(result: LoginResponse,email: String) {
-        if (result.status.equals("200")) {
-            Toast.makeText(activity, result.data.user.subject + " Now", Toast.LENGTH_LONG).show()
+    private fun onRetrievePostListSuccess(result: NewsListResponse) {
+        if (result.status.equals("ok")) {
+            Toast.makeText(activity, result.toString(), Toast.LENGTH_LONG).show()
         } else {
-            errorMessage.value = result.message
-            Toast.makeText(activity, result.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, result.status, Toast.LENGTH_LONG).show()
         }
 
     }
 
     private fun onRetrievePostListError() {
-        errorMessage.value = "Email is already registered.."
+        errorMessage.value = context.getString(R.string.error)
     }
 
 

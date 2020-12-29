@@ -11,5 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="msg_no_internet">No internet connection available.</string>
+    <string name="error">Something went wrong..</string>
 
 </resources>
