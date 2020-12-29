@@ -37,6 +37,10 @@ android {
         enabled = true
         version = "3.4.1"
     }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
 }
 
 dependencies {
@@ -77,5 +81,10 @@ dependencies {
 
     //ProgressBar
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+
+    // Room components
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
     
 }
