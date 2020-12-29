@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.drc.assesment.R
 import com.drc.assesment.databinding.ActivityLoginBinding
 import com.drc.assesment.injection.ViewModelFactory
+import com.drc.assesment.model.User
 import com.drc.assesment.ui.news_list.NewsListActivity
+import com.drc.assesment.utils.Prefs
 import com.drc.assesment.utils.validator.Validator
 import com.drc.assesment.viewmodel.LoginViewModel
 
@@ -29,6 +31,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(LoginViewModel::class.java)
 
+        var prefs = Prefs(this)
+        if (prefs.userDataModel != null) {
+            Prefs(this).userDataModel?.let {
+                startNewsActivity("Wel-come Back "+it.username)
+
+            }
+        }
     }
 
     fun setClickLister() {
@@ -69,6 +78,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel.getLoginDetails(this, strUsername)!!.observe(this, Observer {
 
+            var user  = User(strUsername,strPassword);
+
+            var prefs = Prefs(this@LoginActivity)
+            prefs.userDataModel = user
+
             if (it == null) {
                 viewModel.insertData(this, strUsername, strPassword)
                 startNewsActivity("Wel-come "+ strUsername)
@@ -84,5 +98,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this@LoginActivity, NewsListActivity::class.java)
         intent.putExtra("username",username)
         startActivity(intent)
+        finish()
     }
 }

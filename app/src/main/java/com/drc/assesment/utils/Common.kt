@@ -1,10 +1,13 @@
 package com.drc.assesment.utils
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.drc.assesment.R
+import com.drc.assesment.ui.login.LoginActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,6 +63,12 @@ object Common {
         return dateWeNeed
     }
 
+    fun logoutUser(context: Context?) {
+        Prefs(context!!).clearPrefs()
 
+        val i = Intent(context!!, LoginActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context!!.startActivity(i)
+    }
 
 }

@@ -1,6 +1,8 @@
 package com.drc.assesment.ui.news_list
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -9,9 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.drc.assesment.R
 import com.drc.assesment.databinding.ActivityNewsListBinding
 import com.drc.assesment.injection.ViewModelFactory
+import com.drc.assesment.ui.login.LoginActivity
+import com.drc.assesment.ui.new_details.NewsDetailsActivity
+import com.drc.assesment.utils.Common
+import com.drc.assesment.utils.Prefs
 import com.drc.assesment.viewmodel.NewsListViewModel
 
-class NewsListActivity : AppCompatActivity() {
+class NewsListActivity : AppCompatActivity() ,View.OnClickListener{
 
     private var mBinding: ActivityNewsListBinding? = null
     private lateinit var viewModel: NewsListViewModel
@@ -37,5 +43,17 @@ class NewsListActivity : AppCompatActivity() {
         mBinding!!.viewModel = viewModel
 
         viewModel.getNewsList()
+
+        mBinding!!.imgLogout.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        when(view)
+        {
+            mBinding!!.imgLogout->
+            {
+                Common.logoutUser(this)
+            }
+        }
     }
 }
