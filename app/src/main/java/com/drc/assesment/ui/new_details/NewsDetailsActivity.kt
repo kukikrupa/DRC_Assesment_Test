@@ -1,5 +1,7 @@
 package com.drc.assesment.ui.new_details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,7 @@ import com.drc.assesment.R
 import com.drc.assesment.databinding.ActivityNewsDetailsBinding
 import com.drc.assesment.model.ArticlesResponse
 import com.drc.assesment.utils.Common
+
 
 class NewsDetailsActivity : AppCompatActivity() ,View.OnClickListener{
 
@@ -30,7 +33,9 @@ class NewsDetailsActivity : AppCompatActivity() ,View.OnClickListener{
         Glide.with(this).load(article!!.urlToImage)
             .into(mBinding!!.imgPhoto);
 
-        mBinding!!.actionBar.setOnClickListener(this)
+        mBinding!!.imgBack.setOnClickListener(this)
+        mBinding!!.cardView.setOnClickListener(this)
+
 
 
     }
@@ -38,9 +43,16 @@ class NewsDetailsActivity : AppCompatActivity() ,View.OnClickListener{
     override fun onClick(view: View?) {
         when(view)
         {
-            mBinding!!.imgBack->
-            {
+            mBinding!!.imgBack -> {
                 finish()
+            }
+
+            mBinding!!.cardView -> {
+                val viewIntent = Intent(
+                    "android.intent.action.VIEW",
+                    Uri.parse(article!!.url)
+                )
+                startActivity(viewIntent)
             }
         }
     }
