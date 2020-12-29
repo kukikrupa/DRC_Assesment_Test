@@ -12,9 +12,6 @@ import retrofit2.http.*
  */
 interface PostApi {
 
-
-
-
     @GET(GET_NEWS_LIST)
     fun getNewsList(@QueryMap params: HashMap<String, String>): Observable<NewsListResponse>
 

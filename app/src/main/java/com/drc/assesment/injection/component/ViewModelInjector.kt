@@ -1,6 +1,7 @@
 package com.drc.assesment.injection.component
 
 import com.drc.assesment.injection.module.NetworkModule
+import com.drc.assesment.viewmodel.LoginViewModel
 import com.drc.assesment.viewmodel.NewsListViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 interface ViewModelInjector {
 
     fun inject(newsListViewModel: NewsListViewModel)
+    fun inject(loginViewModel: LoginViewModel)
 
     @Component.Builder
     interface Builder {

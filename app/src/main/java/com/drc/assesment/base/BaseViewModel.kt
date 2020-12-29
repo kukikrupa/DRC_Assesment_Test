@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.drc.assesment.injection.component.DaggerViewModelInjector
 import com.drc.assesment.injection.component.ViewModelInjector
 import com.drc.assesment.injection.module.NetworkModule
+import com.drc.assesment.viewmodel.LoginViewModel
 import com.drc.assesment.viewmodel.NewsListViewModel
 
 
@@ -26,6 +27,7 @@ abstract class BaseViewModel:ViewModel(){
         when (this) {
 
             is NewsListViewModel -> injector.inject(this)
+            is LoginViewModel -> injector.inject(this)
         }
     }
 }

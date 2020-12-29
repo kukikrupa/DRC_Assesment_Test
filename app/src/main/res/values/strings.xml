@@ -12,5 +12,14 @@
 
     <string name="msg_no_internet">No internet connection available.</string>
     <string name="error">Something went wrong..</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+
+    <string name="blank_username">Please enter username</string>
+    <string name="blank_password">Please enter password</string>
+    <string name="proceed">Proceed</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+
 
 </resources>
