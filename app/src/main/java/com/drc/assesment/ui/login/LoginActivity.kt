@@ -1,5 +1,6 @@
 package com.drc.assesment.ui.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.drc.assesment.R
 import com.drc.assesment.databinding.ActivityLoginBinding
 import com.drc.assesment.injection.ViewModelFactory
+import com.drc.assesment.ui.news_list.NewsListActivity
 import com.drc.assesment.utils.validator.Validator
 import com.drc.assesment.viewmodel.LoginViewModel
 
@@ -69,14 +71,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             if (it == null) {
                 viewModel.insertData(this, strUsername, strPassword)
-                Toast.makeText(this,"added",Toast.LENGTH_LONG).show()
+                startNewsActivity("Wel-come "+ strUsername)
             }
             else {
-
-                Toast.makeText(this,"already",Toast.LENGTH_LONG).show()
-
+                startNewsActivity("Wel-come Back "+ strUsername)
             }
         })
     }
 
+
+    private fun startNewsActivity(username: String) {
+        val intent = Intent(this@LoginActivity, NewsListActivity::class.java)
+        intent.putExtra("username",username)
+        startActivity(intent)
+    }
 }

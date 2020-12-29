@@ -24,10 +24,6 @@ class LoginRepository {
 
             loginDatabase = initializeDB(context)
 
-            CoroutineScope(IO).launch {
-                val loginDetails = LoginTableModel(username, password)
-                loginDatabase!!.loginDao().InsertData(loginDetails)
-            }
 
         }
 

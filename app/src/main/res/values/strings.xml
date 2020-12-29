@@ -20,6 +20,7 @@
     <string name="proceed">Proceed</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="title_activity_news_list">NewsListActivity</string>
 
 
 </resources>
