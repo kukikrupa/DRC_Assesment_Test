@@ -1,6 +1,7 @@
 package com.drc.assesment.viewmodel
 
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import com.drc.assesment.base.BaseViewModel
 import com.drc.assesment.model.NewsListResponse
 import com.drc.assesment.network.PostApi
+import com.drc.assesment.ui.news_list.NewsListAdapter
 import com.drc.assesment.utils.Common
 import javax.inject.Inject
 
@@ -21,6 +23,8 @@ class NewsListViewModel(activity: AppCompatActivity) : BaseViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     private lateinit var subscription: Disposable
     private var activity: AppCompatActivity = activity
+    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val newsListAdapter: NewsListAdapter = NewsListAdapter()
 
 
     override fun onCleared() {
@@ -47,22 +51,23 @@ class NewsListViewModel(activity: AppCompatActivity) : BaseViewModel() {
         }
         else
         {
-            Toast.makeText(activity!!,activity.getString(R.string.msg_no_internet),Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,activity.getString(R.string.msg_no_internet),Toast.LENGTH_LONG).show()
         }
 
     }
 
     private fun onRetrievePostListStart() {
-        Common.showProgress(activity)
+        loadingVisibility.value = View.VISIBLE
+
     }
 
     private fun onRetrievePostListFinish() {
-        Common.dismissProgress()
+        loadingVisibility.value = View.GONE
     }
 
     private fun onRetrievePostListSuccess(result: NewsListResponse) {
         if (result.status.equals("ok")) {
-            Toast.makeText(activity, result.toString(), Toast.LENGTH_LONG).show()
+            newsListAdapter.updateList(result.articles)
         } else {
             Toast.makeText(activity, result.status, Toast.LENGTH_LONG).show()
         }

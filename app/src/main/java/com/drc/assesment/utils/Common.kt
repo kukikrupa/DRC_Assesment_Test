@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.drc.assesment.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -36,6 +38,15 @@ object Common {
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    fun dateConverter(dateFromServer: String): String {
+        var dateWeNeed = ""
+        var spf = SimpleDateFormat("yyyy-MM-dd'T'HH:'ZZ'")
+        val newDate: Date = spf.parse(dateFromServer)
+        spf = SimpleDateFormat("dd/MM/yyyy")
+        dateWeNeed = spf.format(newDate)
+        return dateWeNeed
     }
 
 

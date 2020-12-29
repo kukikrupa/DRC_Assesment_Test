@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.drc.assesment.viewmodel.NewsListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/screen_background_color"
@@ -44,10 +51,22 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/actionBar" />
+            app:layout_constraintTop_toBottomOf="@+id/actionBar"
+            app:adapter="@{viewModel.getNewsListAdapter()}"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminateTint="@android:color/black"
+            android:layout_marginTop="@dimen/_25sdp"
+            app:mutableVisibility="@{viewModel.getLoadingVisibility()}"  />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
